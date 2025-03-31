@@ -1,10 +1,10 @@
 import { createRoot } from 'react-dom/client';
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import { BsArrowUpLeftSquare, BsTable, BsBoundingBoxCircles, BsSlashLg } from 'react-icons/bs';
+import '@xyflow/react/dist/style.css';
 import './global.css';
 import { useState, useCallback } from 'react';
 import { ReactFlow, Controls, Background, NodeChange, applyNodeChanges, Node } from '@xyflow/react';
-import '@xyflow/react/dist/style.css';
 import TableNode from './nodes/TableNode';
 
 interface TableNodeData extends Record<string, unknown> {
@@ -29,6 +29,20 @@ const App = () => {
                     { name: 'id', type: 'INT', isPK: true },
                     { name: 'username', type: 'VARCHAR(50)' },
                     { name: 'email', type: 'VARCHAR(100)' },
+                    { name: 'created_at', type: 'TIMESTAMP' }
+                ]
+            }
+        },
+        {
+            id: '2',
+            type: 'table',
+            position: { x: 300, y: 300 },
+            data: {
+                tableName: 'LoginHistory',
+                fields: [
+                    { name: 'id', type: 'INT', isPK: true },
+                    { name: 'username', type: 'VARCHAR(50)' },
+                    { name: 'login_date', type: 'TIMESTAMP' },
                     { name: 'created_at', type: 'TIMESTAMP' }
                 ]
             }

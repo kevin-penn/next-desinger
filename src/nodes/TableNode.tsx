@@ -1,8 +1,10 @@
-import { NodeProps } from '@xyflow/react';
+import { NodeProps, Handle, Position } from '@xyflow/react';
 
 export default function TableNode({ data }: NodeProps) {
     return (
         <div className="bg-white border border-gray-300 rounded-md shadow-md">
+            {/* 顶部连接点 */}
+            <Handle type="source" position={Position.Top} className="!w-3 !h-3 !bg-blue-500 hover:!bg-blue-600 !transition-colors" />
             <div className="bg-blue-600 text-white p-2 font-bold rounded-t-md">
                 {String(data.tableName)}
             </div>
@@ -17,6 +19,8 @@ export default function TableNode({ data }: NodeProps) {
                     </div>
                 ))}
             </div>
+            {/* 底部连接点 */}
+            <Handle type="target" position={Position.Bottom} className='!w-3 !h-3 !bg-blue-500 hover:!bg-blue-600 !transition-colors' />
         </div>
     );
 }
