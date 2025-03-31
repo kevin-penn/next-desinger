@@ -6,3 +6,11 @@
 .tool-buttom {
     @apply bg-gray-900 rounded-none border-0;
 }
+
+.react-flow_pane {
+    cursor: grab;
+}
+
+.react-flow_pane.dragging {
+    cursor: grabbing;
+}
