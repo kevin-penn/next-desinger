@@ -2,22 +2,23 @@ import { createRoot } from 'react-dom/client';
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import { BsArrowUpLeftSquare, BsTable, BsBoundingBoxCircles, BsSlashLg } from 'react-icons/bs';
 import './global.css';
-import { useState, useRef } from 'react';
-import { ReactFlow, Controls, Background } from '@xyflow/react';
+import { useState, useCallback } from 'react';
+import { ReactFlow, Controls, Background, NodeChange, applyNodeChanges, Node } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import TableNode from './nodes/TableNode';
 
-const nodes = [
-    {
-        id: '1',
-        position: { x: 0, y: 0 },
-        data: { label: 'Hello' },
-    },
-];
+interface TableNodeData extends Record<string, unknown> {
+    tableName: string;
+    fields: Array<{
+        name: string;
+        type: string;
+        isPK?: boolean;
+    }>;
+}
 
 const App = () => {
 
-    const [nodes, setNodes] = useState([
+    const initialNodes: Node<TableNodeData>[] = [
         {
             id: '1',
             type: 'table',
@@ -32,7 +33,13 @@ const App = () => {
                 ]
             }
         }
-    ]);
+    ];
+
+    const [nodes, setNodes] = useState<Node<TableNodeData>[]>(initialNodes);
+    const onNodesChange = useCallback(
+        (changes: NodeChange[]) => setNodes((nds) => applyNodeChanges(changes, nds) as Node<TableNodeData>[]),
+        [],
+    );
 
     const handleToolChange = (toolValue: number) => {
 
@@ -73,7 +80,7 @@ const App = () => {
 
             <main className="flex-1">
                 <div className="relative h-full w-full">
-                    <ReactFlow proOptions={{ hideAttribution: true }} nodes={nodes} nodeTypes={{ table: TableNode }} style={{ cursor: 'grab' }}>
+                    <ReactFlow proOptions={{ hideAttribution: true }} nodes={nodes} nodeTypes={{ table: TableNode }} onNodesChange={onNodesChange} style={{ backgroundColor: "#F7F9FB" }}>
                         <Background />
                         <Controls />
                     </ReactFlow>
