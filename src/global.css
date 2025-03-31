@@ -1,0 +1,8 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.tool-buttom {
+    @apply bg-gray-900 rounded-none border-0;
+}
